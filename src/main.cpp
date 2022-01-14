@@ -4,6 +4,8 @@
 
 void setupDisplay();
 
+const int DEVICE_ID = 1; 
+
 RH_ASK driver(2000, 5,4);
 
 void setup() {  
@@ -25,7 +27,7 @@ void PrintData(uint8_t* data, uint8_t size) {
 }
 
 String getData() {
-  uint8_t buf[8];
+  uint8_t buf[32];
   uint8_t buflen = sizeof(buf);
   //RH
   while (!driver.available()){
@@ -33,9 +35,22 @@ String getData() {
   }
   if(driver.recv(buf, &buflen)){
 	    //PrintData(buf,buflen);
-    	String output((char*)buf);
-		//Serial.println(output);
-		return output;
+      String sbuf((char *)buf);
+      Serial.println(sbuf);
+      char i = sbuf.charAt(0);
+      String s = String(i);
+      int index = s.toInt();
+      Serial.println(DEVICE_ID);
+
+      if(index == DEVICE_ID){
+        String output((char*)buf+1);
+        //Serial.println(output);
+        return output;
+      }
+      else{
+        return "";
+      }
+    	  
   	}
 	else
 	{
@@ -49,6 +64,7 @@ void setDisplay(String& time);
 void loop() {
   // put your main code here, to run repeatedly:
   String output = getData();
+  Serial.println(output);
   if (output.length()>0) {
     unsigned long recived = output.toInt();
     unsigned long h = recived / 3600;
