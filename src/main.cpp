@@ -29,7 +29,6 @@ void PrintData(uint8_t* data, uint8_t size) {
 String getData() {
   uint8_t buf[32];
   uint8_t buflen = sizeof(buf);
-  //RH
   while (!driver.available()){
 	  //do nothing
   }
@@ -40,7 +39,6 @@ String getData() {
       char i = sbuf.charAt(0);
       String s = String(i);
       int index = s.toInt();
-      Serial.println(DEVICE_ID);
 
       if(index == DEVICE_ID){
         String output((char*)buf+1);

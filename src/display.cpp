@@ -1,5 +1,4 @@
 #include <MD_MAX72xx.h>
-//#include <MD_Parola.h>
 #include "font.h"
 
 //Matrix
@@ -86,8 +85,5 @@ void printText(uint8_t modStart, uint8_t modEnd, const char *pMsg)
 }
 
 void setDisplay(String& time) {
-    Serial.print("Message: ");
-    Serial.println(time);
-
     printText(0, MAX_DEVICES-1, time.c_str());
 }
