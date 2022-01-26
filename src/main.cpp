@@ -68,9 +68,10 @@ void loop() {
     unsigned long h = recived / 3600;
     unsigned long m = (recived - (h * 3600)) / 60;
     unsigned long s = recived - ((h * 3600) + (m * 60));
-    String time = String(h) + ":" + String(m) + ":" + String(s);
-    
+    char time[32];
+    sprintf (time, "%02ld:%02ld:%02ld", h, m, s);
+    String text = String(time);
     //Display on Matix
-	setDisplay(time);
+	  setDisplay(text);
   }
 }
